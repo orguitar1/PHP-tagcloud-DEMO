@@ -12,6 +12,7 @@ class tagcloud_model
 
     // get tags and largest value
     $this->get_tags();
+    
   }
 
   /* Utility functions
@@ -35,6 +36,10 @@ class tagcloud_model
         $this->tags[] = array('id' => $row->tag_id, 'name' => $row->name, 'total' => $row->total);
 
       }
+
+      // sort tags
+      usort($this->tags, array('tagcloud_model', 'compare_names'));
+
     }
     else
     {
@@ -42,17 +47,49 @@ class tagcloud_model
     }
   }
 
+  function compare_names($a, $b)
+  {
+    return strcmp($a['name'], $b['name']);
+  }
+
   /* Display functions
   -----------------------------------*/
   
   function get_tag_list()
   {
+    if ($this->tags != FALSE)
+    {
+      $data = '';
 
+      // display tags in table
+      $data .= '<table border="1" cellpaddings="10">';
+      $data .= "<tr><th>ID</th><th>Tag Name</th><th>Count</th><th>Weight</th></tr>";
+
+      foreach($this->tags as $tag)
+      {
+
+      }
+
+      $data .= "</table>";
+      return $data;
+
+    }
+    else 
+    {
+      return "No tags to display";
+    }
   }
 
   function get_tag_caloud()
   {
-    
+    if ($this->tags != FALSE)
+    {
+
+    }
+    else 
+    {
+      return "No tags to display";
+    }
   }
 
 }
