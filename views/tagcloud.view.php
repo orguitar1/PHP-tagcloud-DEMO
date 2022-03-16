@@ -21,7 +21,7 @@ table {
 }
 .tagcloud li {
   display: inline;
-  margin-right: 10px;
+  padding: 0 5px;
 }
 .tagcloud a {
 padding: 0;

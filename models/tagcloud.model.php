@@ -67,7 +67,15 @@ class tagcloud_model
 
       foreach($this->tags as $tag)
       {
+        // find weight
+        $weight = round(($tag['total'] / $this->largest) * 10);
 
+        $data .= "<tr>";
+        $data .= "<td>" . $tag['id'] . "</td>";
+        $data .= "<td>" . $tag['name'] . "</td>";
+        $data .= "<td>" . $tag['total'] . "</td>";
+        $data .= "<td>" . $weight . "</td>";
+        $data .= "</tr>";
       }
 
       $data .= "</table>";
@@ -80,10 +88,28 @@ class tagcloud_model
     }
   }
 
-  function get_tag_caloud()
+  function get_tag_cloud()
   {
     if ($this->tags != FALSE)
     {
+      // create unordered list
+      $data = '';
+
+      $data .= "<ul class='tagcloud'>";
+
+      foreach($this->tags as $tag)
+      {
+        // find weight
+        $weight = round(($tag['total'] / $this->largest) * 10);
+
+        // create list item
+        $data .= "<li><a href='tags.php?id=" . $tag['id'] . "' class='tag" . $weight . "'>";
+        $data .= $tag['name'] . "</a></li>";
+        $data .= "\n";
+      }
+
+      $data .= "</ul>";
+      return $data;
 
     }
     else 
